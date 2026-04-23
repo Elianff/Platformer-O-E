@@ -3,9 +3,21 @@ using UnityEngine;
 public class DialogueNPC : MonoBehaviour
 {
 
+    //public InputSystemTest actionMap { get; }
+
+    public GameObject player;
+
     public DialogueLine[] dialogueLines;
 
-    public bool dialogueStarted = false;
+    public GameObject interactInstance;
+
+    private bool dialogueStarted = false;
+
+    private bool visited = false;
+
+
+
+    
 
     //public static PlayerController movement;    
     
@@ -17,24 +29,40 @@ public class DialogueNPC : MonoBehaviour
         if(dialogueStarted && DialogueManager.instance.dialogueFinished == true)
         {
             dialogueStarted = false;
-            //movement.enabled = true;
+            //actionMap.m_Player.Enable();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Eury")
+        //get a way to not overlap text
+        if(collision.gameObject.tag == "Eury" && interactInstance.gameObject.tag == "EuryDialogue")
         {
-            if(!dialogueStarted){
+            if(!dialogueStarted && !visited){
             DialogueManager.instance.StartDialogue(dialogueLines);
             }
             dialogueStarted = true;
-            //movement.enabled = false;
+            visited = true;
+            //actionMap.m_Player.Disable();
+            
+        
+        }
+
+        if(collision.gameObject.tag == "Orph" && interactInstance.gameObject.tag == "OrphDialogue")
+        { 
+            if(!dialogueStarted && !visited){
+            DialogueManager.instance.StartDialogue(dialogueLines);
+            }
+            dialogueStarted = true;
+            visited = true;
+            //actionMap.m_Player.Disable();
             
         
         }
 
         
     }
+
+    
 
 }

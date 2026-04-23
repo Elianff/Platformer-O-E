@@ -66,6 +66,7 @@ public class DialogueManager : MonoBehaviour
                 if (currentIndex < dialogueLines.Length)
                 {
                     typingCoroutine = StartCoroutine(TypeLine(dialogueLines[currentIndex]));
+                    isTyping = true;
                 }
                 else
                 {
